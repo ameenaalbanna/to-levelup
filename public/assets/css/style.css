@@ -14,6 +14,9 @@
   --color-surface: #FFFDF9;
   --color-text: #000000;
   --color-text-secondary: #34266e;
+  --color-disabled: #bababa;
+  /* --color-disabled-border: #a0a0a0; */
+  --color-text-disabled: #656565;
 
 
   --font-logo: 'Press Start 2P', cursive;
@@ -114,7 +117,7 @@ button {
   transition: color 0.3s ease;
 }
 
-.navbar a:hover {
+.navbar a:hover, .navbar a.active {
   color: var(--color-primary);
   text-decoration: underline;
   font-size: 1.7rem;
@@ -122,6 +125,8 @@ button {
   margin-right: 1.1rem;
   transition: color 0.3s ease;
 }
+
+
 
 a svg {
   margin-left: 15px;
@@ -318,6 +323,12 @@ h2:hover {
   border-bottom: 2px solid var(--color-text);
   padding-bottom: 5px;
   color: var(--color-text);
+  background-color: #0000;
+}
+
+.section-header h2{
+  background-color: var(--color-primary);
+  margin-bottom: 25px;
 }
 
 
@@ -473,7 +484,7 @@ h3 {
 }
 
 .habit-input {
-  width: 80%;
+  width: 75%;
 }
 
 .dailie-input {
@@ -541,6 +552,17 @@ h3 {
   gap: 10px;
 }
 
+.dailies .task-item label, .to-dos .task-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+}
+
+.date-gray{
+  font-size: xx-small;
+  color: var(--color-text-disabled);
+}
 
 .xp-btn {
   background: var(--color-accent);
@@ -551,15 +573,11 @@ h3 {
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
+  cursor: default;
 }
 
-.add-task .xp-btn {
-  margin-left: 0;
-  margin-right: auto;
-  padding: 10px;
-}
-
-.add-task .btn {
+.add-task .xp-btn, .add-task .btn-yellow, .add-task .btn-disabled, .add-task .btn-purple{
+  margin: auto;
   padding: 10px;
 }
 
@@ -571,16 +589,18 @@ h3 {
   font-family: var(--font-logo);
 }
 
-.btn {
-  /* background: var(--color-primary);
-  color: white;
+.btn-yellow {
+  background: var(--color-accent);
+  padding: 5px 8px;
   font-weight: bold;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-logo);
-  cursor: pointer; */
+  font-size: 1.2rem;
+  border: 1px solid var(--color-text);
+  font-family: var(--font-head);
+  border-radius: 6px;
+  margin-left: auto;
+}
 
+.btn-purple {
   background: var(--color-primary);
   padding: 5px 8px;
   font-weight: bold;
@@ -590,6 +610,24 @@ h3 {
   border-radius: 6px;
   margin-left: auto;
   color: var(--color-surface);
+}
+
+.btn-disabled {
+  background: var(--color-disabled);
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 1px solid var(--color-text-disabled);
+  font-family: var(--font-head);
+  border-radius: 6px;
+  margin-left: auto;
+  color: var(--color-text-disabled);
+  opacity: 0.7;
+}
+
+.task-item .btn-disabled
+{
+  cursor: not-allowed;
 }
 
 .badges div {
@@ -702,4 +740,33 @@ h3 {
   .task-container .card {
     flex: 0 0 48%;    
   }
+}
+
+
+/* for xp gain */
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.xp-popup {
+  position: fixed;
+  top: 100px;
+  right: 100px;
+  background: #ffd700;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  animation: fadeOutUp 2s ease forwards;
+  z-index: 9999; /* <= Make sure this is higher than navs, modals, cards, etc */
+  pointer-events: none;
 }

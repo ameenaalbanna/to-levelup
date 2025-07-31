@@ -49,7 +49,7 @@ function Main() {
                         <div className="card">
                             <h2><img style={{ width: "30px" }} src='assets/images/coin.png' /> <span className="purple">COINS</span></h2>
                             <p className="coins"><span>530</span></p>
-                            <Link to="/reward"> <button className="btn">SPEND COINS</button> </Link>
+                            <Link to="/reward"> <button className="btn-purple">SPEND COINS</button> </Link>
                         </div>
 
 

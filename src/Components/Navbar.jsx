@@ -21,7 +21,7 @@ function Navbar() {
 
                 
                 <ul className={`navbar ${menuOpen ? 'open' : ''}`}>
-                    <li><NavLink to="/">Home</NavLink></li>
+                    <li><NavLink to="/" end>Home</NavLink></li>
                     <li><NavLink to="/tasks">Tasks</NavLink></li>
                     <li><NavLink to="/progress">Progress</NavLink></li>
                     <li><NavLink to="/reward">Reward</NavLink></li>
