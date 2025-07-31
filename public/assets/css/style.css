@@ -274,14 +274,6 @@ nav ul {
 }
 
 /* Headings */
-.left .card h2 {
-  font-family: var(--font-head);
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--color-text);
-  padding-bottom: 5px;
-  color: var(--color-text);
-}
 
 h2 {
   font-family: var(--font-head);
@@ -289,8 +281,29 @@ h2 {
   text-align: center;
   margin-bottom: 15px;
   padding-bottom: 5px;
+  color: var(--color-surface);
+  text-shadow: 
+      -1px -1px 0 black,
+      1px -1px 0 black,
+      -1px  1px 0 black,
+      1px  1px 0 black;
+}
+
+h2:hover {
+  cursor: default;
+}
+
+.left .card h2, .right .card h2 {
+  font-family: var(--font-head);
+  font-size: 1.8rem;
+  text-align: left;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--color-text);
+  padding-bottom: 5px;
   color: var(--color-text);
 }
+
+
 
 h3 {
   display: inline;

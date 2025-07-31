@@ -5,7 +5,7 @@ function Task() {
         <div>
             <div className='task-view'>
                 <div className="dashboard">
-                    <div className='card' style={{ width: "100%" }}>
+                    <div style={{ width: "100%", marginTop: "20px" }}>
                         <h2>TASK MANAGEMENT</h2>
                     </div>
 
