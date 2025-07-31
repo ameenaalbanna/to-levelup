@@ -237,13 +237,25 @@ nav ul {
 
 
 /* Layout */
-.dashboard {
+.dashboard,
+.task-container {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
   width: 90vw;
   margin: auto;
+}
+
+.dashboard {
+  gap: 20px;
+  justify-content: center;
+}
+
+.task-container {
+  justify-content: space-between;
+}
+
+.task-container .card {
+  width: 31%;
 }
 
 .left,
@@ -282,18 +294,19 @@ h2 {
   margin-bottom: 15px;
   padding-bottom: 5px;
   color: var(--color-surface);
-  text-shadow: 
+  /* text-shadow: 
       -1px -1px 0 black,
       1px -1px 0 black,
       -1px  1px 0 black,
-      1px  1px 0 black;
+      1px  1px 0 black; */
 }
 
 h2:hover {
   cursor: default;
 }
 
-.left .card h2, .right .card h2 {
+.left .card h2,
+.right .card h2 {
   font-family: var(--font-head);
   font-size: 1.8rem;
   text-align: left;
@@ -306,7 +319,6 @@ h2:hover {
 
 
 h3 {
-  display: inline;
   color: var(--color-primary);
   font-size: 1.3rem;
   margin-bottom: 15px;
@@ -384,7 +396,7 @@ h3 {
 .task-view {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  
+
   margin: 15px auto;
   width: 90vw;
 }
@@ -408,7 +420,6 @@ h3 {
 }
 
 .task-list li {
-  border-bottom: 2px solid var(--color-primary);
   background: white;
   padding: 10px;
   margin-bottom: 10px;
@@ -441,10 +452,73 @@ h3 {
   margin: 15px 0;
 }
 
-.section-title {
+.add-task {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  border: none;
+  align-items: center;
+  background: white;
+  width: 100%
+}
+
+.habit-input, .dailie-input, .todo-input {
+  padding: 10px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.habit-input {
+  width: 80%;
+}
+
+.dailie-input {
+  width: 100%;
+}
+
+.todo-input {
+  width: 90%;
+}
+
+.datepicker-toggle {
+  display: inline-block;
+  position: relative;
+  width: 35px;
+  height: 44px;
+}
+.datepicker-toggle-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.datepicker-toggle-button img {
+  width: 25px;
 }
 
 .task-item {
@@ -463,6 +537,7 @@ h3 {
   gap: 10px;
 }
 
+
 .xp-btn {
   background: var(--color-accent);
   padding: 5px 8px;
@@ -474,6 +549,16 @@ h3 {
   margin-left: auto;
 }
 
+.add-task .xp-btn {
+  margin-left: 0;
+  margin-right: auto;
+  padding: 10px;
+}
+
+.add-task .btn {
+  padding: 10px;
+}
+
 /* coins Section */
 .coins {
   font-size: 1.5rem;
@@ -483,14 +568,24 @@ h3 {
 }
 
 .btn {
-  background: var(--color-primary);
+  /* background: var(--color-primary);
   color: white;
   font-weight: bold;
   padding: 10px;
   border: none;
   border-radius: 8px;
   font-family: var(--font-logo);
-  cursor: pointer;
+  cursor: pointer; */
+
+  background: var(--color-primary);
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 1px solid var(--color-text);
+  font-family: var(--font-head);
+  border-radius: 6px;
+  margin-left: auto;
+  color: var(--color-surface);
 }
 
 .badges div {
@@ -568,5 +663,39 @@ h3 {
 
   nav {
     justify-content: space-between;
+  }
+
+  .task-container {
+  gap: 20px;
+  justify-content: center;
+}
+
+.task-container .card{
+  width: 90%;
+  flex: 0 0 100%;
+}
+
+}
+
+@media (max-width: 1000px) {
+  .task-container {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .task-container .card {
+    width:90%;
+    
+  }
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1400px){
+  .task-container {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .task-container .card {
+    flex: 0 0 48%;    
   }
 }
