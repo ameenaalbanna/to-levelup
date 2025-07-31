@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import App from "./App";
 import AllTask from "./Tasks/AllTask";
+import AllData from "./Data/AllData";
 
 const router = createBrowserRouter([
   {
@@ -23,5 +24,7 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <AllData>
+    <RouterProvider router={router} />
+  </AllData>
 );

@@ -41,6 +41,10 @@ div {
   z-index: 1000;
 }
 
+button {
+  cursor: pointer;
+}
+
 .logo {
   display: flex;
   align-items: center;
