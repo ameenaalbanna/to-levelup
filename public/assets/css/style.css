@@ -493,7 +493,8 @@ h3 {
 }
 
 .todo-input {
-  width: 90%;
+  width: 75%;
+  margin-right: 3px;
 }
 
 .datepicker-toggle {
@@ -561,6 +562,26 @@ h3 {
     border: none;
 }
 
+.task-item.task-completed {
+    border: 1px solid #999;
+    color: #888;
+    text-decoration: line-through;
+    background-color: #f3f3f3;
+    transition: all 0.3s ease;
+}
+
+.task-item.task-completed input[type="checkbox"] {
+    accent-color: gray;
+}
+
+.task-date {
+    font-size: 0.8rem;
+    color: #777;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+
 
 
 .task-item label {
@@ -576,9 +597,10 @@ h3 {
   padding: 5px;
 }
 
-.date-gray{
+.task-date{
   font-size: xx-small;
   color: var(--color-text-disabled);
+  margin-right: 5px;
 }
 
 .xp-btn {
