@@ -37,7 +37,7 @@ function Task() {
                     <div className="card to-dos">
                         <div className='section-title'>
                             <h3>TO_DOS</h3>
-                            <label className="add-task" style={{ width: "100%" }}><input type='text' className='todo-input' placeholder='Add a dailie' />
+                            <label className="add-task" style={{ width: "100%" }}><input type='text' className='todo-input' placeholder='Add a to-do' />
                                 <span className="datepicker-toggle">
                                     <span className="datepicker-toggle-button btn">
                                         <img src='assets/images/calendar.svg' />
