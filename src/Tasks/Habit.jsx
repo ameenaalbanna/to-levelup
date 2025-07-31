@@ -3,7 +3,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import XPPopup from '../Components/XPPopup';
 
 function Habit() {
-    const [habits, setHabits] = useState([]);
+    const [habits, setHabits] = useLocalStorage('habits', []);
     const [inputValue, setInputValue] = useState('');
     const [type, setType] = useState(null); // "positive" | "negative"
     const [xp, setXp] = useLocalStorage('xp', 0);
@@ -15,15 +15,14 @@ function Habit() {
         else setType('positive');
     };
 
-    const handleSubmit = () => {
+    const addHabit = () => {
         if (!inputValue.trim() || !type) return;
 
         const newHabit = {
             id: Date.now(),
-            text: inputValue,
+            text: inputValue.trim(),
             type: type
         };
-
         setHabits([...habits, newHabit]);
         setInputValue('');
         setType(null);
@@ -31,7 +30,7 @@ function Habit() {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            handleSubmit();
+            addHabit();
         }
     };
 
@@ -40,6 +39,10 @@ function Habit() {
         setXp(prev => prev + change);
         setXpChange(change);
         setShowPopup(true);
+    };
+
+    const deleteHabit = (id) => {
+        setHabits(habits.filter(h => h.id !== id));
     };
 
     return (
@@ -61,7 +64,7 @@ function Habit() {
                 >
                     {type === 'negative' ? '-' : '+'}
                 </button>
-                <button className="btn-purple" onClick={handleSubmit}>Add</button>
+                <button className="btn-purple" onClick={addHabit}>Add</button>
             </label>
 
             <ul className="task-list">
@@ -81,6 +84,9 @@ function Habit() {
                             onClick={() => habit.type === 'negative' && handleHabitClick('negative')}
                         >
                             -
+                        </button>
+                        <button className="btn-gray" onClick={() => deleteHabit(habit.id)}>
+                            <img src='assets/images/trash.svg'/>
                         </button>
                     </li>
                 ))}

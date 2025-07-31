@@ -1,19 +1,86 @@
-import React from 'react'
+import React, { useState } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
+import XPPopup from '../Components/XPPopup';
 
 function Daily() {
+    const [dailies, setDailies] = useLocalStorage('dailies', []);
+    const [inputValue, setInputValue] = useState('');
+    const [xp, setXp] = useLocalStorage('xp', 0);
+    const [showPopup, setShowPopup] = useState(false);
+    const [xpChange, setXpChange] = useState(0);
+
+    const addDaily = () => {
+        if (!inputValue.trim()) return;
+        const newTask = {
+            id: Date.now(),
+            text: inputValue.trim(),
+            completed: false
+        };
+        setDailies([...dailies, newTask]);
+        setInputValue('');
+    };
+
+    const deleteDaily = (id) => {
+        setDailies(dailies.filter(t => t.id !== id));
+    };
+
+    const toggleComplete = (id) => {
+        const updatedTasks = dailies.map(t => {
+            if (t.id === id) {
+                const newCompleted = !t.completed;
+                const xpDelta = newCompleted ? 10 : -10;
+                setXp(prev => prev + xpDelta);
+                setXpChange(xpDelta);
+                setShowPopup(true);
+                return { ...t, completed: newCompleted };
+            }
+            return t;
+        });
+        setDailies(updatedTasks);
+    };
+
     return (
         <div className="card dailies">
             <div className='section-title'>
                 <h3>DAILIES</h3>
-                <label className="add-task" style={{ width: "100%" }}><input type='text' className='dailie-input' placeholder='Add a dailie' /></label>
+                <label className="add-task" style={{ width: "100%" }}>
+                    <input
+                        type='text'
+                        className='daily-input'
+                        placeholder='Add a daily'
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && addDaily()}
+                    />
+                    <button className="btn-purple" onClick={addDaily}>Add</button>
+                </label>
             </div>
             <ul className="task-list">
-                <li className="task-item"><label><input type="checkbox" />Complete morning workout</label></li>
-                <li className="task-item"><label><input type="checkbox" />Read for 30 minutes</label></li>
-                <li className="task-item"><label><input type="checkbox" />Finish project report</label></li>
+                {dailies.map(task => (
+                    <li key={task.id} className={`task-item ${task.completed ? 'task-completed' : ''}`}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={task.completed}
+                                onChange={() => toggleComplete(task.id)}
+                            />
+                            {task.text}
+                        </label>
+                        <button className="btn-gray" onClick={() => deleteDaily(task.id)}>
+                            <img src='assets/images/trash.svg' alt="delete" />
+                        </button>
+                    </li>
+                ))}
             </ul>
+
+            {showPopup && (
+                <XPPopup
+                    value={xpChange}
+                    onComplete={() => setShowPopup(false)}
+                />
+            )}
         </div>
-    )
+    );
 }
 
-export default Daily
+export default Daily;

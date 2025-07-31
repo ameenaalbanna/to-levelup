@@ -477,7 +477,7 @@ h3 {
   width: 100%
 }
 
-.habit-input, .dailie-input, .todo-input {
+.habit-input, .daily-input, .todo-input {
   padding: 10px;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -487,8 +487,9 @@ h3 {
   width: 75%;
 }
 
-.dailie-input {
-  width: 100%;
+.daily-input {
+  width: 90%;
+  margin-right: 5px;
 }
 
 .todo-input {
@@ -546,6 +547,22 @@ h3 {
 }
 
 
+
+.task-item.task-completed {
+    border: 1px solid #999;
+    color: #888;
+    text-decoration: line-through;
+    background-color: #f3f3f3;
+    transition: all 0.3s ease;
+}
+
+.task-item.task-completed input[type="checkbox"] {
+    accent-color: gray;
+    border: none;
+}
+
+
+
 .task-item label {
   display: flex;
   align-items: center;
@@ -579,6 +596,26 @@ h3 {
 .add-task .xp-btn, .add-task .btn-yellow, .add-task .btn-disabled, .add-task .btn-purple{
   margin: auto;
   padding: 10px;
+}
+
+.btn-gray {
+  background: var(--color-text-disabled);
+  padding: 5px 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 1px solid var(--color-text);
+  font-family: var(--font-head);
+  border-radius: 6px;
+  margin-left: auto;
+  color: var(--color-surface);
+  margin-left: 0;
+  padding: 3px;
+}
+
+.btn-gray img{
+  padding:0;
+  margin:0;
+  height: 20px;
 }
 
 /* coins Section */
