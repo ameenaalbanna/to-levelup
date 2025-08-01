@@ -163,6 +163,47 @@ nav {
   transition: all .50s ease;
 }
 
+.footer {
+    background-color: var(--color-surface);
+    border-radius: 17px;
+    border: solid 2px #000;
+    width: 90vw;
+    font-family: var(--font-head);
+    margin: auto;
+    margin-bottom: 15px;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+
+    /* display: grid;
+    grid-template-rows: 1fr 1fr; */
+
+    transition: all .50s ease;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 40px;
+    color: #333;
+}
+
+.footer-slogan {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+.footer-icons a {
+    margin: 0 10px;
+    font-size: 20px;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.footer-icons a:hover {
+    transform: scale(1.2);
+}
+
 nav ul {
   display: flex;
   align-items: center;
@@ -721,6 +762,8 @@ h3 {
 .hamburger .bar.open:nth-child(3) {
   transform: rotate(45deg) translate(-10px, -10px);
 }
+
+
 
 /* for small screens */
 @media (max-width: 890px) {
