@@ -198,6 +198,11 @@ nav {
     text-decoration: none;
     transition: transform 0.2s;
     display: inline-block;
+    padding: 0;
+}
+
+.social-icon {
+  width: 30px;
 }
 
 .footer-icons a:hover {
