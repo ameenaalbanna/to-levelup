@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import useXp from '../hooks/useXp';
 import XPPopup from '../Components/XPPopup';
 
 function Habit() {
     const [habits, setHabits] = useLocalStorage('habits', []);
     const [inputValue, setInputValue] = useState('');
     const [type, setType] = useState(null); // "positive" | "negative"
-    const [xp, setXp] = useLocalStorage('xp', 0);
-    const [showPopup, setShowPopup] = useState(false);
-    const [xpChange, setXpChange] = useState(0);
-    const [coins, setCoins] = useLocalStorage('coins', 0);
-
+    const { addXPAndCoins, popup, hidePopup } = useXp();
 
     const toggleType = () => {
         if (type === 'positive') setType('negative');
@@ -37,13 +34,10 @@ function Habit() {
     };
 
     const handleHabitClick = (habitType) => {
-        const change = habitType === 'positive' ? 5 : -5;
-        setXp(prev => prev + change);
-        setXpChange(change);
-        setShowPopup(true);
-
         if (habitType === 'positive') {
-            setCoins(prev => prev + 10);
+            addXPAndCoins(5, 10); // +5 XP, +10 coins
+        } else {
+            addXPAndCoins(-5, 0); // -5 XP, no coin
         }
     };
 
@@ -55,7 +49,6 @@ function Habit() {
         <div className="card habits">
             <h3>HABITS</h3>
             <label className="add-task">
-
                 <input
                     type="text"
                     className="habit-input"
@@ -92,16 +85,17 @@ function Habit() {
                             -
                         </button>
                         <button className="btn-gray" onClick={() => deleteHabit(habit.id)}>
-                            <img src='assets/images/trash.svg' />
+                            <img src='assets/images/trash.svg' alt="delete" />
                         </button>
                     </li>
                 ))}
             </ul>
 
-            {showPopup && (
+            {popup.visible && (
                 <XPPopup
-                    value={xpChange}
-                    onComplete={() => setShowPopup(false)}
+                    xpValue={popup.xpValue}
+                    coinValue={popup.coinValue}
+                    onComplete={hidePopup}
                 />
             )}
         </div>

@@ -6,8 +6,10 @@ function Daily() {
     const [dailies, setDailies] = useLocalStorage('dailies', []);
     const [inputValue, setInputValue] = useState('');
     const [xp, setXp] = useLocalStorage('xp', 0);
+    const [coins, setCoins] = useLocalStorage('coins', 0);
     const [showPopup, setShowPopup] = useState(false);
     const [xpChange, setXpChange] = useState(0);
+    const [coinChange, setCoinChange] = useState(0);
 
     const addDaily = () => {
         if (!inputValue.trim()) return;
@@ -29,9 +31,14 @@ function Daily() {
             if (t.id === id) {
                 const newCompleted = !t.completed;
                 const xpDelta = newCompleted ? 10 : -10;
+                const coinDelta = newCompleted ? 15 : -15;
+
                 setXp(prev => prev + xpDelta);
+                setCoins(prev => prev + coinDelta);
                 setXpChange(xpDelta);
+                setCoinChange(coinDelta);
                 setShowPopup(true);
+
                 return { ...t, completed: newCompleted };
             }
             return t;
@@ -55,6 +62,7 @@ function Daily() {
                     <button className="btn-purple" onClick={addDaily}>Add</button>
                 </label>
             </div>
+
             <ul className="task-list">
                 {dailies.map(task => (
                     <li key={task.id} className={`task-item ${task.completed ? 'task-completed' : ''}`}>
@@ -75,7 +83,8 @@ function Daily() {
 
             {showPopup && (
                 <XPPopup
-                    value={xpChange}
+                    xpValue={xpChange}
+                    coinValue={coinChange}
                     onComplete={() => setShowPopup(false)}
                 />
             )}

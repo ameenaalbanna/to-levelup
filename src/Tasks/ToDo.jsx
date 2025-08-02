@@ -7,8 +7,10 @@ function ToDo() {
     const [inputValue, setInputValue] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [xp, setXp] = useLocalStorage('xp', 0);
+    const [coins, setCoins] = useLocalStorage('coins', 0);
     const [showPopup, setShowPopup] = useState(false);
     const [xpChange, setXpChange] = useState(0);
+    const [coinChange, setCoinChange] = useState(0);
 
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -39,9 +41,15 @@ function ToDo() {
             if (todo.id === id) {
                 const newCompleted = !todo.completed;
                 const xpDelta = newCompleted ? 15 : -15;
-                setXp(prev => prev + xpDelta);
+                const coinDelta = newCompleted ? 20 : -20;
+
+                setXp(prev => Math.max(prev + xpDelta, 0));
+                setCoins(prev => Math.max(prev + coinDelta, 0));
+
                 setXpChange(xpDelta);
+                setCoinChange(coinDelta);
                 setShowPopup(true);
+
                 return { ...todo, completed: newCompleted };
             }
             return todo;
@@ -97,7 +105,8 @@ function ToDo() {
 
             {showPopup && (
                 <XPPopup
-                    value={xpChange}
+                    xpValue={xpChange}
+                    coinValue={coinChange}
                     onComplete={() => setShowPopup(false)}
                 />
             )}
