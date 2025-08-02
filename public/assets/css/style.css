@@ -130,7 +130,7 @@ a svg {
   margin-left: 15px;
 }
 
-a svg:hover {
+a svg:hover, a .svg-nologin:hover {
   color: var(--color-primary);
 }
 

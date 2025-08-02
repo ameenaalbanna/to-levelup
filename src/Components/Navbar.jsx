@@ -35,7 +35,7 @@ function Navbar() {
                         <div className="login">
                             <NavLink to="/login" className="login-icon-wrapper">
                                 <div className="icon-container">
-                                    <svg
+                                    <svg className='svg-noLogin'
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 100 100"
                                         style={{ width: "35px", fill: userIconColor }}
