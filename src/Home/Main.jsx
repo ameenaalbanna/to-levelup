@@ -1,7 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router'
+import useXp from '../hooks/useXp';
+import useLocalStorage from '../hooks/useLocalStorage';
+import XPPopup from '../Components/XPPopup';
+
 
 function Main() {
+    const [todos, setTodos] = useLocalStorage('todos', []);
+    const [xp, setXp] = useLocalStorage('xp', 0);
+    const [coins, setCoins] = useLocalStorage('coins', 0);
+    const [popup, setPopup] = useState({ visible: false, xpValue: 0, coinValue: 0 });
+
+    const toggleComplete = (id) => {
+        const updated = todos.map(todo => {
+            if (todo.id === id) {
+                const newCompleted = !todo.completed;
+                const xpDelta = newCompleted ? 15 : -15;
+                const coinDelta = newCompleted ? 20 : -20;
+
+                setXp(prev => Math.max(prev + xpDelta, 0));
+                setCoins(prev => Math.max(prev + coinDelta, 0));
+                setPopup({
+                    visible: true,
+                    xpValue: xpDelta,
+                    coinValue: coinDelta
+                });
+
+                return { ...todo, completed: newCompleted };
+            }
+            return todo;
+        });
+
+        setTodos(updated);
+    };
+
+    const hidePopup = () => {
+        setPopup({ visible: false, xpValue: 0, coinValue: 0 });
+    };
+
     return (
         <div>
             <div className='main'>
@@ -30,13 +66,38 @@ function Main() {
 
 
                         <div className="card">
-                            <h2><img style={{ width: "30px" }} src='assets/images/accepted.png' /> <span className="purple">TODAY'S TASKS</span></h2>
+                            <h2>
+                                <img style={{ width: "30px" }} src='assets/images/accepted.png' alt="icon" />
+                                <span className="purple">TODAY'S TASKS</span>
+                            </h2>
+
                             <ul className="task-list">
-                                <li className="task-item"><label><input type="checkbox" />Complete morning workout</label><button className="xp-btn">+10 XP</button></li>
-                                <li className="task-item"><label><input type="checkbox" />Read for 30 minutes</label><button className="xp-btn">+10 XP</button></li>
-                                <li className="task-item"><label><input type="checkbox" />Finish project report</label><button className="xp-btn">+15 XP</button></li>
+                                {todos.map(todo => (
+                                    <li key={todo.id} className={`task-item ${todo.completed ? 'task-completed' : ''}`}>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={todo.completed}
+                                                onChange={() => toggleComplete(todo.id)}
+                                            />
+                                            {todo.text}
+                                        </label>
+                                        <button className="xp-btn">
+                                            {todo.completed ? '+15 XP' : '+15 XP'}
+                                        </button>
+                                    </li>
+                                ))}
                             </ul>
+
+                            {popup.visible && (
+                                <XPPopup
+                                    xpValue={popup.xpValue}
+                                    coinValue={popup.coinValue}
+                                    onComplete={hidePopup}
+                                />
+                            )}
                         </div>
+
                     </section>
 
 
@@ -48,7 +109,7 @@ function Main() {
 
                         <div className="card">
                             <h2><img style={{ width: "30px" }} src='assets/images/coin.png' /> <span className="purple">COINS</span></h2>
-                            <p className="coins"><span>530</span></p>
+                            <p className="coins"><span>{coins}¢</span></p>
                             <Link to="/reward"> <button className="btn-purple">SPEND COINS</button> </Link>
                         </div>
 
