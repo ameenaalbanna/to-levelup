@@ -8,9 +8,7 @@ function ToDo() {
     const [selectedDate, setSelectedDate] = useState('');
     const [xp, setXp] = useLocalStorage('xp', 0);
     const [coins, setCoins] = useLocalStorage('coins', 0);
-    const [showPopup, setShowPopup] = useState(false);
-    const [xpChange, setXpChange] = useState(0);
-    const [coinChange, setCoinChange] = useState(0);
+    const [popups, setPopups] = useState([]); // Array for multiple popups
 
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -46,15 +44,26 @@ function ToDo() {
                 setXp(prev => Math.max(prev + xpDelta, 0));
                 setCoins(prev => Math.max(prev + coinDelta, 0));
 
-                setXpChange(xpDelta);
-                setCoinChange(coinDelta);
-                setShowPopup(true);
+                // Add a new popup to the array
+                setPopups(prev => [
+                    ...prev,
+                    {
+                        id: Date.now() + Math.random(),
+                        xpValue: xpDelta,
+                        coinValue: coinDelta
+                    }
+                ]);
 
                 return { ...todo, completed: newCompleted };
             }
             return todo;
         });
         setTodos(updated);
+    };
+
+    // Remove popup by id
+    const removePopup = (id) => {
+        setPopups(prev => prev.filter(p => p.id !== id));
     };
 
     return (
@@ -89,6 +98,7 @@ function ToDo() {
                     <li key={todo.id} className={`task-item ${todo.completed ? 'task-completed' : ''}`}>
                         <label>
                             <input
+                                id="todo-checkbox"
                                 type="checkbox"
                                 checked={todo.completed}
                                 onChange={() => toggleComplete(todo.id)}
@@ -103,13 +113,15 @@ function ToDo() {
                 ))}
             </ul>
 
-            {showPopup && (
+            {/* Render all active popups */}
+            {popups.map(popup => (
                 <XPPopup
-                    xpValue={xpChange}
-                    coinValue={coinChange}
-                    onComplete={() => setShowPopup(false)}
+                    key={popup.id}
+                    xpValue={popup.xpValue}
+                    coinValue={popup.coinValue}
+                    onComplete={() => removePopup(popup.id)}
                 />
-            )}
+            ))}
         </div>
     );
 }

@@ -7,9 +7,7 @@ function Daily() {
     const [inputValue, setInputValue] = useState('');
     const [xp, setXp] = useLocalStorage('xp', 0);
     const [coins, setCoins] = useLocalStorage('coins', 0);
-    const [showPopup, setShowPopup] = useState(false);
-    const [xpChange, setXpChange] = useState(0);
-    const [coinChange, setCoinChange] = useState(0);
+    const [popups, setPopups] = useState([]); // Array for multiple popups
 
     const addDaily = () => {
         if (!inputValue.trim()) return;
@@ -35,15 +33,27 @@ function Daily() {
 
                 setXp(prev => prev + xpDelta);
                 setCoins(prev => prev + coinDelta);
-                setXpChange(xpDelta);
-                setCoinChange(coinDelta);
-                setShowPopup(true);
+
+                // Add a new popup to the array
+                setPopups(prev => [
+                    ...prev,
+                    {
+                        id: Date.now() + Math.random(),
+                        xpValue: xpDelta,
+                        coinValue: coinDelta
+                    }
+                ]);
 
                 return { ...t, completed: newCompleted };
             }
             return t;
         });
         setDailies(updatedTasks);
+    };
+
+    // Remove popup by id
+    const removePopup = (id) => {
+        setPopups(prev => prev.filter(p => p.id !== id));
     };
 
     return (
@@ -68,6 +78,7 @@ function Daily() {
                     <li key={task.id} className={`task-item ${task.completed ? 'task-completed' : ''}`}>
                         <label>
                             <input
+                                id="daily-checkbox"
                                 type="checkbox"
                                 checked={task.completed}
                                 onChange={() => toggleComplete(task.id)}
@@ -81,13 +92,15 @@ function Daily() {
                 ))}
             </ul>
 
-            {showPopup && (
+            {/* Render all active popups */}
+            {popups.map(popup => (
                 <XPPopup
-                    xpValue={xpChange}
-                    coinValue={coinChange}
-                    onComplete={() => setShowPopup(false)}
+                    key={popup.id}
+                    xpValue={popup.xpValue}
+                    coinValue={popup.coinValue}
+                    onComplete={() => removePopup(popup.id)}
                 />
-            )}
+            ))}
         </div>
     );
 }
