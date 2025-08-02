@@ -9,6 +9,8 @@ function Habit() {
     const [xp, setXp] = useLocalStorage('xp', 0);
     const [showPopup, setShowPopup] = useState(false);
     const [xpChange, setXpChange] = useState(0);
+    const [coins, setCoins] = useLocalStorage('coins', 0);
+
 
     const toggleType = () => {
         if (type === 'positive') setType('negative');
@@ -39,6 +41,10 @@ function Habit() {
         setXp(prev => prev + change);
         setXpChange(change);
         setShowPopup(true);
+
+        if (habitType === 'positive') {
+            setCoins(prev => prev + 10);
+        }
     };
 
     const deleteHabit = (id) => {
@@ -49,7 +55,7 @@ function Habit() {
         <div className="card habits">
             <h3>HABITS</h3>
             <label className="add-task">
-                
+
                 <input
                     type="text"
                     className="habit-input"
@@ -86,7 +92,7 @@ function Habit() {
                             -
                         </button>
                         <button className="btn-gray" onClick={() => deleteHabit(habit.id)}>
-                            <img src='assets/images/trash.svg'/>
+                            <img src='assets/images/trash.svg' />
                         </button>
                     </li>
                 ))}

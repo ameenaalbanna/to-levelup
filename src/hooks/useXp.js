@@ -6,8 +6,11 @@ export default function useXP() {
     const [popup, setPopup] = useState({ visible: false, value: 0 });
 
     const addXP = (amount) => {
-        setXp(prev => prev + amount);
-        setPopup({ visible: true, value: amount });
+        setXp(prev => {
+            const newXP = Math.max(0, prev + amount);
+            setPopup({ visible: true, value: amount });
+            return newXP;
+        });
     };
 
     const hidePopup = () => setPopup({ ...popup, visible: false });
