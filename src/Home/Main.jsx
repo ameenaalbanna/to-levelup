@@ -39,6 +39,41 @@ function Main() {
         setPopup({ visible: false, xpValue: 0, coinValue: 0 });
     };
 
+
+    // Leveling logic
+    const getLevelInfo = (xp) => {
+        const xpPerLevel = 100; // Can increase per level if you want to scale
+        const level = Math.floor(xp / xpPerLevel);
+        const levelStartXp = level * xpPerLevel;
+        const levelEndXp = (level + 1) * xpPerLevel;
+        const xpInLevel = xp - levelStartXp;
+        const xpToNext = levelEndXp - xp;
+        const percent = (xpInLevel / xpPerLevel) * 100;
+
+        return {
+            level,
+            xpInLevel,
+            xpPerLevel,
+            xpToNext,
+            percent,
+            levelStartXp,
+            levelEndXp
+        };
+    };
+
+    const {
+        level,
+        xpInLevel,
+        xpPerLevel,
+        xpToNext,
+        percent,
+        levelEndXp
+    } = getLevelInfo(xp);
+
+    const completedCount = todos.filter(todo => todo.completed).length;
+
+
+
     return (
         <div>
             <div className='main'>
@@ -48,17 +83,17 @@ function Main() {
                     <section className="left">
                         <div className="card">
                             <h2><img style={{ width: "30px" }} src='assets/images/sun.png' /> <span className="purple">DAILY OVERVIEW</span></h2>
-                            <div className="level-bar">
-                                <button className="level-btn">LEVEL 12</button>
-                                <div className="progress-bar">
-                                    <div className="fill"></div>
-                                    <span>1410 / 2000 XP</span>
-                                </div>
+                            <p className="xp-subtext">{xp} / {levelEndXp} XP</p>
+                            <div className="xp-bar-container">
+                                <div className="xp-bar-fill" style={{ width: `${percent}%` }}></div>
+                                <span className="xp-text">{xp} / {levelEndXp} XP</span>
                             </div>
                             <div className="stats">
                                 <div className="stat-box">
-                                    <p><strong>8</strong> Tasks Done</p>
+                                    <p><strong>{completedCount}</strong> Tasks Done</p>
                                 </div>
+
+
                                 <div className="stat-box">
                                     <p><strong>3</strong> Streak Days</p>
                                 </div>
