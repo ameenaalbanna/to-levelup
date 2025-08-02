@@ -11,7 +11,7 @@ function AllData({ children }) {
         })
     }, [])
     return (
-        <apiValue.Provider value={"red"}>
+        <apiValue.Provider>
             {children}
         </apiValue.Provider>
     )
