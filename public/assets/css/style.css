@@ -214,9 +214,18 @@ nav {
   margin-top: 2px;
 }
 
-.footer-icons a:hover {
+.btn-purple:hover , .datepicker-toggle:hover, .footer-icons a:hover {
     transform: scale(1.2);
     background-color: #755ed7;
+}
+
+.btn-yellow:hover {
+    transform: scale(1.2);
+    background-color: #ffec3d;
+}
+.btn-gray:hover {
+    transform: scale(1.2);
+    background-color: #888;
 }
 
 nav ul {

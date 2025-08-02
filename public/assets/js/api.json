@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "5-minute Break",
+        "price": 100,
+        "image": "/assets/images/clock.png"
+    },
+    {
+        "id": 2,
+        "name": "One Episode",
+        "price": 250,
+        "image": "/assets/images/play.png"
+    },
+    {
+        "id": 3,
+        "name": "Snack Time",
+        "price": 150,
+        "image": "/assets/images/pizza.png"
+    },
+    {
+        "id": 4,
+        "name": "One Hour Gaming",
+        "price": 500,
+        "image": "/assets/images/games.png"
+    },
+    {
+        "id": 5,
+        "name": "Social Media 15min",
+        "price": 120,
+        "image": "/assets/images/computer.png"
+    },
+    {
+        "id": 6,
+        "name": "Buy Coffee",
+        "price": 200,
+        "image": "/assets/images/cup.png"
+    },
+    {
+        "id": 7,
+        "name": "Watch Movie",
+        "price": 300,
+        "image": "/assets/images/play.png"
+    },
+    {
+        "id": 8,
+        "name": "Power Nap",
+        "price": 80,
+        "image": "/assets/images/sleeping.png"
+    },
+    {
+        "id": 9,
+        "name": "Time with Friends",
+        "price": 80,
+        "image": "/assets/images/smile.png"
+    }
+]
