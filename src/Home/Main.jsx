@@ -11,6 +11,7 @@ function Main() {
     const [xp, setXp] = useLocalStorage('xp', 0);
     const [coins, setCoins] = useLocalStorage('coins', 0);
     const [popup, setPopup] = useState({ visible: false, xpValue: 0, coinValue: 0 });
+    const [username, setUsername] = useState(() => window.localStorage.getItem('username') || '');
 
     const toggleComplete = (id) => {
         const updated = todos.map(todo => {
@@ -77,7 +78,6 @@ function Main() {
     return (
         <div>
             <div className='main'>
-
                 <main className="dashboard">
 
                     <section className="left">
@@ -140,7 +140,7 @@ function Main() {
                     <section className="right">
 
                         <div className="header">
-                            <h1>Welcome back, adventurer!</h1>
+                            <h1>Welcome back, <span id="user-get">{username || "Adventurer"}</span>!</h1>
                         </div>
 
                         <div className="card">

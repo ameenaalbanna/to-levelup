@@ -5,8 +5,10 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = (e) => {
-        e.preventDefault(); // Prevent form reload
-        navigate('/'); // Navigate to homepage
+        e.preventDefault();
+        const username = e.target.username.value;
+        window.localStorage.setItem('username', username); // Save username
+        navigate('/');
     };
 
     return (

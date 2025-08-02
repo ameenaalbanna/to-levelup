@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import useLocalStorage from '../hooks/useLocalStorage';
 import useXp from '../hooks/useXp';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const { coins } = useXp();
+    const [username] = useState(() => window.localStorage.getItem('username') || '');
+
+    const userIconColor = username ? "#604abd" : "black";
 
     return (
         <div>
@@ -36,12 +38,12 @@ function Navbar() {
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 100 100"
-                                        style={{ width: "35px", fill: "currentColor" }}
+                                        style={{ width: "35px", fill: userIconColor }}
                                     >
-                                        <svg
+                                        <svg id="user-icon"
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 100 100"
-                                            style={{ width: "35px", fill: "currentColor" }}
+                                            style={{ width: "35px", fill: userIconColor }}
                                         >
                                             <polygon
                                                 points="19.052,95.251 23.812,95.251 28.572,95.251 33.332,95.251 38.092,95.251 42.852,95.251 47.612,95.251 52.401,95.251 52.401,95.233 57.147,95.233 61.907,95.233 66.667,95.233 71.427,95.233 76.188,95.233 80.947,95.233 85.707,95.233 90.467,95.233 95.237,95.233 95.237,90.463 95.237,85.703 95.237,80.942 90.467,80.942 90.467,76.183 90.467,71.423 85.707,71.423 85.707,66.663 80.947,66.663 80.947,61.903 76.188,61.903 76.188,57.123 71.427,57.123 66.667,57.123 61.907,57.123 61.907,61.903 57.147,61.903 52.387,61.903 52.387,61.921 47.612,61.921 42.852,61.921 38.092,61.921 38.092,57.141 33.332,57.141 28.572,57.141 23.812,57.141 23.812,61.921 19.052,61.921 19.052,66.681 14.292,66.681 14.292,71.44 9.532,71.44 9.532,76.2 9.532,80.96 4.762,80.96 4.762,85.721 4.762,90.48 4.762,95.251 9.532,95.251 14.292,95.251"
