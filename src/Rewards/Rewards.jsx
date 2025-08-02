@@ -5,7 +5,7 @@ import XPPopup from '../Components/XPPopup';
 function Rewards() {
     const [rewards, setRewards] = useState([]);
     const [coins, setCoins] = useLocalStorage('coins', 0);
-    const [popup, setPopup] = useState({ visible: false, xpValue: 0, coinValue: 0 });
+    const [popups, setPopups] = useState([]); // Array for multiple popups
 
     useEffect(() => {
         fetch('/assets/js/api.json')
@@ -16,14 +16,22 @@ function Rewards() {
     const buyReward = (price) => {
         if (coins >= price) {
             setCoins(prev => prev - price);
-            setPopup({ visible: true, xpValue: 0, coinValue: -price });
+            setPopups(prev => [
+                ...prev,
+                {
+                    id: Date.now() + Math.random(),
+                    xpValue: 0,
+                    coinValue: -price
+                }
+            ]);
         } else {
             alert('Not enough coins!');
         }
     };
 
-    const hidePopup = () => {
-        setPopup({ visible: false, xpValue: 0, coinValue: 0 });
+    // Remove popup by id
+    const removePopup = (id) => {
+        setPopups(prev => prev.filter(p => p.id !== id));
     };
 
     return (
@@ -36,6 +44,7 @@ function Rewards() {
                             <span>{reward.name}</span> | <span>{reward.price}</span>¢
                         </label>
                         <button
+                            id="buy-btn"
                             className='btn-purple'
                             onClick={() => buyReward(reward.price)}
                         >
@@ -45,13 +54,15 @@ function Rewards() {
                 ))}
             </div>
 
-            {popup.visible && (
+            {/* Render all active popups */}
+            {popups.map(popup => (
                 <XPPopup
+                    key={popup.id}
                     xpValue={popup.xpValue}
                     coinValue={popup.coinValue}
-                    onComplete={hidePopup}
+                    onComplete={() => removePopup(popup.id)}
                 />
-            )}
+            ))}
         </div>
     );
 }

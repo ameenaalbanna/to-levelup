@@ -4,13 +4,11 @@ import useXp from '../hooks/useXp';
 import useLocalStorage from '../hooks/useLocalStorage';
 import XPPopup from '../Components/XPPopup';
 
-
-
 function Main() {
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [xp, setXp] = useLocalStorage('xp', 0);
     const [coins, setCoins] = useLocalStorage('coins', 0);
-    const [popup, setPopup] = useState({ visible: false, xpValue: 0, coinValue: 0 });
+    const [popups, setPopups] = useState([]); // Array for multiple popups
     const [username, setUsername] = useState(() => window.localStorage.getItem('username') || '');
 
     const toggleComplete = (id) => {
@@ -22,11 +20,14 @@ function Main() {
 
                 setXp(prev => Math.max(prev + xpDelta, 0));
                 setCoins(prev => Math.max(prev + coinDelta, 0));
-                setPopup({
-                    visible: true,
-                    xpValue: xpDelta,
-                    coinValue: coinDelta
-                });
+                setPopups(prev => [
+                    ...prev,
+                    {
+                        id: Date.now() + Math.random(),
+                        xpValue: xpDelta,
+                        coinValue: coinDelta
+                    }
+                ]);
 
                 return { ...todo, completed: newCompleted };
             }
@@ -36,8 +37,9 @@ function Main() {
         setTodos(updated);
     };
 
-    const hidePopup = () => {
-        setPopup({ visible: false, xpValue: 0, coinValue: 0 });
+    // Remove popup by id
+    const removePopup = (id) => {
+        setPopups(prev => prev.filter(p => p.id !== id));
     };
 
 
@@ -112,6 +114,7 @@ function Main() {
                                     <li key={todo.id} className={`task-item ${todo.completed ? 'task-completed' : ''}`}>
                                         <label>
                                             <input
+                                                className="home-checkbox"
                                                 type="checkbox"
                                                 checked={todo.completed}
                                                 onChange={() => toggleComplete(todo.id)}
@@ -125,13 +128,15 @@ function Main() {
                                 ))}
                             </ul>
 
-                            {popup.visible && (
+                            {/* Render all active popups */}
+                            {popups.map(popup => (
                                 <XPPopup
+                                    key={popup.id}
                                     xpValue={popup.xpValue}
                                     coinValue={popup.coinValue}
-                                    onComplete={hidePopup}
+                                    onComplete={() => removePopup(popup.id)}
                                 />
-                            )}
+                            ))}
                         </div>
 
                     </section>
