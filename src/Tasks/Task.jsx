@@ -7,7 +7,7 @@ function Task() {
     return (
         <div>
             <div className='task-view'>
-                <div className="task-container">
+                <div className="container">
                     <div className="section-header" style={{ width: "100%", marginTop: "20px" }}>
                         <h2>TASK MANAGEMENT</h2>
                     </div>

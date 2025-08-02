@@ -25,7 +25,7 @@ function Navbar() {
                     <li><NavLink to="/tasks">Tasks</NavLink></li>
                     <li><NavLink to="/progress">Progress</NavLink></li>
                     <li><NavLink to="/reward">Reward</NavLink></li>
-                    <li><NavLink to="/settings">Settings</NavLink></li>
+                    {/* <li><NavLink to="/settings">Settings</NavLink></li> */}
                     <li>
                         <div className="login">
                             <NavLink to="/login">

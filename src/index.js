@@ -9,6 +9,8 @@ import {
 import App from "./App";
 import AllTask from "./Tasks/AllTask";
 import AllData from "./Data/AllData";
+import AllProgress from "./Progress/AllProgress";
+import AllRewards from "./Rewards/AllRewards";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,16 @@ const router = createBrowserRouter([
   {
     path: "tasks",
     element: <AllTask />
+  },
+
+  {
+    path: "progress",
+    element: <AllProgress />
+  },
+
+  {
+    path: "reward",
+    element: <AllRewards />
   },
 
 ]);

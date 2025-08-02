@@ -36,6 +36,7 @@ body {
     linear-gradient(to right, rgb(255, 255, 255) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(255, 255, 255) 1px, transparent 1px);
   background-size: 60px 60px;
+  min-height: 100vh;
   /* spacing between grid lines */
 }
 
@@ -161,12 +162,13 @@ nav {
   justify-content: space-between;
   padding: 28px 3%;
   transition: all .50s ease;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px #000;
 }
 
 .footer {
     background-color: var(--color-surface);
     border-radius: 17px;
-    border: solid 2px #000;
     width: 90vw;
     font-family: var(--font-head);
     margin: auto;
@@ -186,6 +188,11 @@ nav {
     color: #333;
 }
 
+.nav, .footer, .card {
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0px #000;
+}
+
 .footer-slogan {
     margin-bottom: 10px;
     font-weight: 500;
@@ -198,15 +205,18 @@ nav {
     text-decoration: none;
     transition: transform 0.2s;
     display: inline-block;
-    padding: 0;
+    padding: 2px 5px;
+    border-radius: 50px;
 }
 
 .social-icon {
   width: 30px;
+  margin-top: 2px;
 }
 
 .footer-icons a:hover {
     transform: scale(1.2);
+    background-color: #755ed7;
 }
 
 nav ul {
@@ -293,7 +303,7 @@ nav ul {
 
 /* Layout */
 .dashboard,
-.task-container {
+.container {
   display: flex;
   flex-wrap: wrap;
   width: 90vw;
@@ -305,11 +315,11 @@ nav ul {
   justify-content: center;
 }
 
-.task-container {
+.container {
   justify-content: space-between;
 }
 
-.task-container .card {
+.container .card {
   width: 31%;
 }
 
@@ -335,7 +345,7 @@ nav ul {
 /* Cards */
 .card {
   background: var(--color-surface);
-  border: 2px solid var(--color-text);
+  
   border-radius: 17px;
   padding: 20px;
 }
@@ -407,7 +417,7 @@ h3 {
   font-weight: bold;
   text-align: center;
   line-height: 22px;
-  border: 1px solid #000;
+  border: 2px solid #000;
 }
 
 .fill {
@@ -435,7 +445,7 @@ h3 {
 
 .stat-box {
   flex: 1;
-  border: 1px solid var(--color-text);
+  border: 3px solid var(--color-text);
   padding: 10px;
   text-align: center;
   background: var(--color-accent);
@@ -588,7 +598,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid black;
+  border: 2px solid rgb(54, 54, 54);
   padding: 10px;
   background: white;
 }
@@ -654,7 +664,7 @@ h3 {
   padding: 5px 8px;
   font-weight: bold;
   font-size: 1.2rem;
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-text);
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
@@ -671,7 +681,7 @@ h3 {
   padding: 5px 8px;
   font-weight: bold;
   font-size: 1.2rem;
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-text);
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
@@ -699,7 +709,7 @@ h3 {
   padding: 5px 8px;
   font-weight: bold;
   font-size: 1.2rem;
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-text);
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
@@ -710,7 +720,7 @@ h3 {
   padding: 5px 8px;
   font-weight: bold;
   font-size: 1.2rem;
-  border: 1px solid var(--color-text);
+  border: 2px solid var(--color-text);
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
@@ -722,7 +732,7 @@ h3 {
   padding: 5px 8px;
   font-weight: bold;
   font-size: 1.2rem;
-  border: 1px solid var(--color-text-disabled);
+  border: 2px solid var(--color-text-disabled);
   font-family: var(--font-head);
   border-radius: 6px;
   margin-left: auto;
@@ -767,6 +777,39 @@ h3 {
 .hamburger .bar.open:nth-child(3) {
   transform: rotate(45deg) translate(-10px, -10px);
 }
+
+
+/* reward */
+.reward-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+  gap: 20px;
+  width: 80vw;
+  margin: auto;
+}
+
+.reward-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid #ccc; /* Optional */
+  text-align: center;
+  gap:10px
+}
+
+.reward-item img {
+  width: 100px;
+}
+
+.reward-item button {
+  margin:0;
+  width: 35%;
+  font-size: 2rem;
+
+}
+
 
 
 
@@ -814,37 +857,44 @@ h3 {
     justify-content: space-between;
   }
 
-  .task-container {
+  .container {
   gap: 20px;
   justify-content: center;
 }
 
-.task-container .card{
+.container .card{
   width: 90%;
   flex: 0 0 100%;
+}
+
+.left {
+  min-width: 100%;
+}
+
+.reward-container {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 }
 
 @media (max-width: 1000px) {
-  .task-container {
+  .container {
     gap: 20px;
     justify-content: center;
   }
 
-  .task-container .card {
+  .container .card {
     width:90%;
-    
   }
 }
 
 @media only screen and (min-width: 1000px) and (max-width: 1400px){
-  .task-container {
+  .container {
     gap: 20px;
     justify-content: center;
   }
 
-  .task-container .card {
+  .container .card {
     flex: 0 0 48%;    
   }
 }
