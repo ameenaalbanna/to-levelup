@@ -5,6 +5,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import XPPopup from '../Components/XPPopup';
 
 
+
 function Main() {
     const [todos, setTodos] = useLocalStorage('todos', []);
     const [xp, setXp] = useLocalStorage('xp', 0);

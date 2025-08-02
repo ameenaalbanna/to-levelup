@@ -11,6 +11,7 @@ import AllTask from "./Tasks/AllTask";
 import AllData from "./Data/AllData";
 import AllProgress from "./Progress/AllProgress";
 import AllRewards from "./Rewards/AllRewards";
+import AllLogin from "./Login/AllLogin";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
   {
     path: "reward",
     element: <AllRewards />
+  },
+
+  {
+    path: "login",
+    element: <AllLogin />
   },
 
 ]);

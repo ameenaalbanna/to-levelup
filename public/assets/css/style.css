@@ -437,6 +437,42 @@ h3 {
   border-radius: 5px;
 }
 
+.level-btn:hover {
+  cursor: default;
+}
+
+.login-page-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: auto;
+  gap:20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  row-gap: 20px;
+  padding: 20px;
+}
+
+.login-form .btn-purple, .login-form a, .login-form .btn-purple a{
+  margin:0;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #fff;
+  width: 100%;
+}
+
+.login-page h2 {
+  color: var(--color-text);
+  margin: 0;
+}
+
 .progress-bar {
   position: relative;
   background: black;
@@ -562,7 +598,7 @@ h3 {
   width: 100%
 }
 
-.habit-input, .daily-input, .todo-input {
+.habit-input, .daily-input, .todo-input, #username {
   padding: 10px;
   font-family: var(--font-body);
   font-size: 1rem;

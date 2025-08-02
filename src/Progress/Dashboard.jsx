@@ -13,7 +13,7 @@ function Progress() {
             <div className="card progress-section">
                 <h3 className="section-title">📋 LEVEL PROGRESS</h3>
                 <div className="level-box">
-                    <button className="btn-purple">LEVEL 12</button>
+                    <button className="level-btn">LEVEL 12</button>
                     <div className="xp-bar-container">
                         <div className="xp-bar-fill" style={{ width: '62.5%' }}></div>
                         <span className="xp-text">1,250 / 2,000 XP</span>
