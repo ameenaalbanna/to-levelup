@@ -7,7 +7,7 @@ function Habit() {
     const [habits, setHabits] = useLocalStorage('habits', []);
     const [inputValue, setInputValue] = useState('');
     const [type, setType] = useState(null); // "positive" | "negative"
-    const { addXPAndCoins, popup, hidePopup } = useXp();
+    const { addXPAndCoins, popups, removePopup } = useXp();
 
     const toggleType = () => {
         if (type === 'positive') setType('negative');
@@ -71,6 +71,7 @@ function Habit() {
                     <li key={habit.id} className="task-item">
                         <label>
                             <button
+                                id="habit-positive"
                                 className={habit.type === 'positive' ? 'btn-yellow' : 'btn-disabled'}
                                 onClick={() => habit.type === 'positive' && handleHabitClick('positive')}
                             >
@@ -79,6 +80,7 @@ function Habit() {
                             {habit.text}
                         </label>
                         <button
+                            id='habit-negative'
                             className={habit.type === 'negative' ? 'btn-purple' : 'btn-disabled'}
                             onClick={() => habit.type === 'negative' && handleHabitClick('negative')}
                         >
@@ -91,13 +93,15 @@ function Habit() {
                 ))}
             </ul>
 
-            {popup.visible && (
+            {/* Render all active popups */}
+            {popups.map(popup => (
                 <XPPopup
+                    key={popup.id}
                     xpValue={popup.xpValue}
                     coinValue={popup.coinValue}
-                    onComplete={hidePopup}
+                    onComplete={() => removePopup(popup.id)}
                 />
-            )}
+            ))}
         </div>
     );
 }
